@@ -26,7 +26,8 @@ class CoursesPage extends React.Component {
     event.preventDefault();
     // debugger;
     // this.props.dispatch(courseActions.createCourse(this.state.course));
-    this.props.createCourse(courseActions.createCourse(this.state.course));
+    // this.props.createCourse(courseActions.createCourse(this.state.course));
+    this.props.actions.createCourse(this.state.course);
     // alert(this.state.course.title);
   };
 
@@ -52,7 +53,7 @@ class CoursesPage extends React.Component {
 
 CoursesPage.propTypes = {
   courses: PropTypes.array.isRequired,
-  createCourse: PropTypes.func.isRequired
+  actions: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
@@ -68,7 +69,8 @@ function mapDispatchToProps(dispatch) {
     // createCourse: course => dispatch(courseActions.createCourse(course))
 
     // using bindAction
-    createCourse: bindActionCreators(courseActions, dispatch)
+    // createCourse: bindActionCreators(courseActions, dispatch)
+    actions: bindActionCreators(courseActions, dispatch)
   };
 }
 

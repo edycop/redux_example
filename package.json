@@ -20,7 +20,10 @@
     "reselect": "4.0.0"
   },
   "scripts": {
-    "start": "webpack-dev-server --config webpack.config.dev.js --port 3002"
+    "start": "run-p start:dev start:api",
+    "start:dev": "webpack-dev-server --config webpack.config.dev.js --port 3002",
+    "prestart:api": "node tools/createMockDb.js",
+    "start:api": "node tools/apiServer.js"
   },
   "eslintConfig": {
     "extends": [
