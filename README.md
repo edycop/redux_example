@@ -72,3 +72,89 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 If you just want to run the api json server:
 
     npm run start:api
+
+### Notes about React apps
+
+- Do I need Redux
+  - Props Dilling: pass props down to children that doesn't need it
+  - React context: use global Provider
+  - Redux: use global Store that can use from anywhere
+- 3 redux principles
+  - One immutable store:
+    - store.dispatch(action)
+    - store.subscribe(listener)
+    - store.getState()
+    - replaceReducer(nextReducer)
+  - Actions to change store is use triggers
+  - Reducers: are pure functions to update states (given a state, return another)
+    - reducer composition:
+      - one action handled by one or multiple reducers
+      - each reducer can handle one or more actions
+  - Each action is handled by a reducer (many reducers) that update a single (unique) store
+- Initial Redux
+  - 1. create action
+  - 2. create reducer
+  - 3. create root reducer
+  - 4. configure store
+  - 5. instantiate store
+  - 6.. connect components
+  - 7.. pass props via connect
+  - 8. dispatch action
+- Thunk: a function that wraps an expression to delay its evaluation [it's like a python decorator].
+- plugin vscode:
+  - ESLint (Dirk Baeumer)
+  - Prettier - code formater (Esben Petersen)
+  -
+- df
+
+### Testing react applications
+
+- Jest: a framework to test react apps
+- Helper libraries: React Test Utils
+  - shallowRender: render single component
+  - renderIntoDocument: render component and children
+- Helper libraries: Enzyme (is an abstraction)
+  - React test utils in background
+  - JSDOM (In-memory DOM)
+  - Cheerio is a CSS selector
+- Helper libraries: React Testing Library
+- To run tests:
+  - npm t || npm run test || npm test
+  - "test": "jest --watch" test wen we hit save
+  - plugin for vscode:
+    - snapshot-tools (Alexey Svetliakov)
+  - df
+- Enzyme:
+  - Two ways to render a React component
+    - shallow: render single component in isolation:
+      - not DOM is created
+      - no child components are rendered) [faster]
+    - mount: render component with children:
+      - DOM is created in memory via JSDOM
+      - child components are rendered
+      - more realistic
+- React Testing Library:
+  - https://testing-library.com/docs/react-testing-library/api
+  - https://testing-library.com/docs/dom-testing-library/api-queries
+  - tests based on what users sees
+  - df
+- Testing Redux: how to test connected components?
+  - Test markup:
+  - Test behaviour: action (click, scroll, drag, change) over components
+  - Could not find "store" ERROR:
+    - 1. Wrap our components in <Provider>:
+      - We must instantiate a Provider: return mount(<Provider store={store}><ManageCoursePage /></Provider>);
+    - 2. Export plain unconnected component:
+      - the easy way: we need update our component.
+      - maybe generate an ESLint error, so:
+        - // eslint-disable-line import/no-named-as-default
+  - Testing actions:
+  - Testing thunks:
+    - Mock two things:
+      - Store: redux-mock-store
+      - HTTP Calls: fetch-mock
+  - Testing reducers:
+  - Testing store:
+    - rather than Unit Test we write an Integration test
+      - integration between action creators, store and reducer
+    - Redux Flow
