@@ -41,7 +41,8 @@ import { toast } from "react-toastify";
 
 // Hooks allow usto handle stateand site effects
 // (think lifecycle methods)in functions components
-function ManageCoursePage({
+// UPDATE: we export our unconnected component
+export function ManageCoursePage({
   courses,
   authors,
   loadAuthors,
@@ -82,13 +83,13 @@ function ManageCoursePage({
   }
 
   // client-side validation so users get validation feedback immediately
-  function formIsValid(){
+  function formIsValid() {
     const { title, authorId, category } = course;
     const errors = {};
 
-    if(!title) errors.title = "Title is required.";
-    if(!authorId) errors.author = "Author is required.";
-    if(!category) errors.category = "Category is required.";
+    if (!title) errors.title = "Title is required.";
+    if (!authorId) errors.author = "Author is required.";
+    if (!category) errors.category = "Category is required.";
 
     setErrors(errors);
     // Form is valid if the errors object still has no properties
@@ -99,13 +100,15 @@ function ManageCoursePage({
     event.preventDefault();
     if (!formIsValid()) return;
     setSaving(true);
-    saveCourse(course).then(() => {
-      toast.success("Course saved.");
-      history.push("/courses"); // using React Redirect's history
-    }).catch(error => {
-      setSaving(false);
-      setErrors({ onSave: error.message });
-    });
+    saveCourse(course)
+      .then(() => {
+        toast.success("Course saved.");
+        history.push("/courses"); // using React Redirect's history
+      })
+      .catch(error => {
+        setSaving(false);
+        setErrors({ onSave: error.message });
+      });
   }
 
   return authors.length === 0 || courses.length === 0 ? (
@@ -179,6 +182,7 @@ const mapDispatchToProps = {
 };
 
 // Redux connect component
+// UPDATE: export default connected component
 export default connect(
   mapStateToProps,
   mapDispatchToProps // dispatched automatically
