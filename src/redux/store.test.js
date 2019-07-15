@@ -30,7 +30,7 @@ it("Should handle creating course", () => {
 
   //assert
   // WE GET THE COURSE FROM THE STORE
-  console.log(store.getState());
+  // console.log(store.getState());
   const createdCourse = store.getState().courses;
   expect(createdCourse[0]["0"]).toEqual(newCourses[0]);
   expect(createdCourse[0]["1"]).toEqual(newCourses[1]);
